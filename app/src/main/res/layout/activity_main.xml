@@ -27,13 +27,32 @@
             <TextView
                 android:id="@+id/bpmText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="120\n\n\n\n\n\n40" />
+                android:layout_below="@+id/topTools"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:textSize="20sp"
+                android:text="BPM : 40" />
 
             <TextView
                 android:id="@+id/repeatText"
+                android:layout_width="wrap_content"
+                android:layout_above="@+id/bottomTools"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Repeat : Single" />
+
+            <TextView
+                android:id="@+id/bpmRange"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="160\n\n\n\n\n\n40" />
+
+            <TextView
+                android:id="@+id/repeatRange"
                 android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent"
@@ -57,6 +76,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:min="40"
+                android:max="160"
                 android:rotation="270"
                 android:translationX="-20dp" />
 
