@@ -26,4 +26,4 @@ With AR mode, you can take the drum machine anywhere with a platform (a table, g
 ## Technology Selection
 * **IDE** : Android Studio
 * **Lowest Android Version** : ```7.0``` (For AR capability)
-* **APIs** : ARCore, Unity for Android
+* **APIs** : ARCore, Unity for Android, MediaPlayer, MediaRecorder
