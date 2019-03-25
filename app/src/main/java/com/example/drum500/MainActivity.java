@@ -12,21 +12,46 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
 
+
+    // ***************** Set global variables ***************** //
+
+    // Mediaplayer parameters
     int id;
     String padID;
     int resourceID;
-    boolean stopped = false;
+    Map<String, Boolean> stopped = new HashMap() {{
+        put("congal", false);
+        put("congam", false);
+        put("congah", false);
+        put("clap", false);
+        put("openhihat", false);
+        put("tom", false);
+        put("snare", false);
+        put("closedhihat", false);
+        put("kick", false);
+        put("cowbell", false);
+        put("clave", false);
+        put("maraca", false);
+    }};
 
     MediaPlayer drumPlayer;
+
+    // Node repeat parameters
     String[] repeatMap = {"Single", "Double", "Triple", "Quartic"};
     int bpm = 40;
     int repeat = 1;
     double interval = 60 / (double)bpm / (double)repeat * 1000;
 
+    // Record, save
+    boolean recording = false;
+
+    // Switches
     boolean nr = false;
     boolean fl = false;
 
@@ -53,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     TextView currentRepeat;
 
 
-    // Set onTouch
+    // ***************** Set onTouch method ***************** //
+
     View.OnTouchListener playSample = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
         @Override
@@ -61,20 +87,19 @@ public class MainActivity extends AppCompatActivity {
 
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                stopped = false;
                 Log.i("Info", "pressed");
                 id = v.getId();
                 padID = v.getResources().getResourceEntryName(id);
                 resourceID = getResources().getIdentifier(padID, "raw", getPackageName());
+                stopped.put(padID, false);
 
                 if (nr) {
 
                     new Thread() {
                         public void run() {
-                            
-                            while (!stopped) {
+
+                            while (!stopped.get(padID)) {
                                 try {
-                                    Log.i("Info", "played");
                                     drumPlayer = MediaPlayer.create(v.getContext(), resourceID);
                                     drumPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                         @Override
@@ -118,13 +143,15 @@ public class MainActivity extends AppCompatActivity {
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
                 Log.i("Info", "released");
-                stopped = true;
+                stopped.put(padID, true);
             }
 
             return false;
         }
     };
 
+
+    // ***************** Set onCreate activity ***************** //
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -159,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         currentRepeat = (TextView) findViewById(R.id.repeatText);
 
 
-        // Set bpm
+        // Set bpm bar
         bpmBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -176,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        // Set Node Repeat
+        // Set repeat times bar
         repeatBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -190,6 +217,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
+
+        // Set node repeat function
+        nodeRepeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    nr = true;
+                } else {
+                    nr = false;
+                }
+            }
         });
 
         pad1.setOnTouchListener(playSample);
@@ -206,17 +246,6 @@ public class MainActivity extends AppCompatActivity {
         pad12.setOnTouchListener(playSample);
 
 
-        nodeRepeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    nr = true;
-                } else {
-                    nr = false;
-                }
-            }
-        });
-
         // Set Full Level
         fullLevel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -225,6 +254,21 @@ public class MainActivity extends AppCompatActivity {
                     fl = true;
                 } else {
                     fl = false;
+                }
+            }
+        });
+
+
+        // Set recording function
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recording) {
+                    recording = false;
+                    record.setText("◉");
+                } else {
+                    recording = true;
+                    record.setText("■");
                 }
             }
         });
