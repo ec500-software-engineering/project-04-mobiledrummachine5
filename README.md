@@ -2,5 +2,5 @@
 project-mobiledrummachine5 created by GitHub Classroom
 
 # record demo
-* **API: MediaRecorder/MediaPlayer 
-* **Function: drum sound record/play
+* **API: MediaRecorder/MediaPlayer**
+* **Function: drum sound record/play**
