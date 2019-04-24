@@ -22,7 +22,7 @@ AR mode is built in [Unity](https://unity.com/), work with [Vuforia](https://dev
 ![](https://github.com/ZeyuKeithFu/drumstAR/blob/master/assets/ARmode.png)   
 
 * Drum pads are built with ```virtual buttons```. To play the drum, simply by cover the virtual button region (just like you push a real button) and the corresponding drum sound will be played.   
-* For the reason of size and scale, only three drum pads (hihat, snare and kick) are add to AR activity. For the Unity development part, see [UnityDev](https://github.com/ZeyuKeithFu/drumstAR/tree/UnityDev) branch. The further step of developing AR activity could be working on:
+* For the reason of size and scale, only three drum pads (hihat, snare and kick) are add to AR activity. For the Unity and Vuforia development part, see [VuforiaDev](https://github.com/ec500-software-engineering/project-04-mobiledrummachine5/tree/VuforiaDev) branch. The further step of developing AR activity could be working on:
    + Adding more drum pads to the scene.
    + Adding animation on different part of the drum kit when hitting a drum pad.
    + ...
