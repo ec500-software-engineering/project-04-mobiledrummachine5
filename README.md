@@ -5,7 +5,7 @@ A mobile drum machine with a basic live mode and an AR mode. Play with drums at 
 ### Live Mode
 Live mode provides 12 drum pads with 12 different drum sounds.   
    
-![](https://github.com/ZeyuKeithFu/Drum500/blob/master/assets/live_mode.png)   
+![](https://github.com/ZeyuKeithFu/drumstAR/blob/master/assets/liveMode.png)   
    
 Some useful functions are included:
 * **Node repeat**   
@@ -17,18 +17,24 @@ Sometimes your inspirations just come out with no advance and you don't want to 
    
    
 ### AR Mode
-With AR mode, you can take the drum machine anywhere with a platform (a table, ground, wall etc,.) where drum pads will attach once platform is detected, and then you play it with your hands. Here is a reference [demo effect](https://www.youtube.com/watch?v=Zas5JCjQb40&feature=youtu.be). Functions still on building.   
+AR mode is built in [Unity](https://unity.com/), work with [Vuforia](https://developer.vuforia.com/) AR engine. Once the [image](https://github.com/ZeyuKeithFu/Drum500/blob/master/assets/drum1.jpg) of drum in this application is detected, you will have your drum kit all set. The single piece of drum image, which is absolutely light and portable, will be your new drum machine and you can take it anywhere. **THE IMAGE IS A DRUM MACHINE!!!**
 
-![](https://github.com/ZeyuKeithFu/Drum500/blob/master/assets/AR_mode.png)
+![](https://github.com/ZeyuKeithFu/drumstAR/blob/master/assets/ARmode.png)   
 
-* Device must support ```ARCore by Google``` for using AR mode, here is a list of [avaliable devices](https://developers.google.com/ar/discover/supported-devices).   
+* Drum pads are built with ```virtual buttons```. To play the drum, simply by cover the virtual button region (just like you push a real button) and the corresponding drum sound will be played.   
+* For the reason of size and scale, only three drum pads (hihat, snare and kick) are add to AR activity. For the Unity development part, see [UnityDev](https://github.com/ZeyuKeithFu/drumstAR/tree/UnityDev) branch. The further step of developing AR activity could be working on:
+   + Adding more drum pads to the scene.
+   + Adding animation on different part of the drum kit when hitting a drum pad.
+   + ...
+ 
    
 ## User Story
-* As a ```DJ/drummer```, I need a more portable device to perform live drum and no device is more portable than your on mobile phone.
+* As a ```DJ/drummer```, I need a more portable device to perform live drum and no device is more portable than your own mobile phone.
 * As a ```music producer```, I need a software to record my inspirations so that they don't slip away.
 * As a ```music lover```, I want to play with drums without buying an expensive physical drum machine.
    
 ## Technology Selection
-* **IDE** : Android Studio
-* **Lowest Android Version** : ```7.0``` (For AR capability)
-* **APIs** : ARCore, Unity for Android, MediaPlayer, MediaRecorder
+* **IDE** : ```Android Studio```(Android activities), ```Unity 3D```(3D AR model), ```Visual Studio```(C#)
+* **Supported devices** : Android devices with lowest *API level 26* (```Android 8.0.0 Oreo```)
+* **APIs** : Unity for Android, Vuforia for Android, MediaPlayer, MediaRecorder
+
