@@ -344,32 +344,73 @@ public class MainActivity extends AppCompatActivity {
                         ActivityCompat.requestPermissions(MainActivity.this, permissions, REQUEST_WRITE_PERMISSION);
                     }
                     recording = true;
-                    record.setText("■");
+                    //AlertDialog comes out
+                    chooseRecordOpt();
 
-                    // Start recording
-                    recorder = new MediaRecorder();
-
-                    recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-                    recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                    String file_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC) + "/drumstAR";
-                    File storage_path = new File(file_path);
-                    if (!storage_path.exists())
-                        storage_path.mkdir();
-                    recorder.setOutputFile(file_path + "/demo.3gp");
-
-                    try {
-                        recorder.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "Recording failed!!!Check permission.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    recorder.start();
-                    Toast.makeText(MainActivity.this, "Recording start...", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
+        //Record Option ; View Demo / Start Record
+        private void chooseReordOpt(){
+
+            AlertDialog.Builder builder =new AlertDialo.Builder(this);
+            builder.setTitle("Record Option");
+            String[] items = {"View Your Demo", "Start Record"};
+            builder.setNegativeButton("cancel", null);
+
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            openDemoList();
+                            break;
+                        case 1:
+                            startRecording();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            builder.create().show();
+        }
+
+        //to DemoListView
+        private void openDemolist(){
+            Intent demoListIntent = new Intent(MainActivity.this, DemoListActivity.class);
+            startActivity(demoListIntent);
+            finish();
+        };
+
+        private void startRecording(){
+            record.setText("■");
+            // Start recording
+            recorder = new MediaRecorder();
+
+            recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            String file_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC) + "/drumstAR";
+            File storage_path = new File(file_path);
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+            if (!storage_path.exists())
+                storage_path.mkdir();
+            recorder.setOutputFile(file_path + "/demo_" + timeStamp);
+
+            try {
+                recorder.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "Recording failed!!!Check permission.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            recorder.start();
+            Toast.makeText(MainActivity.this, "Recording start...", Toast.LENGTH_SHORT).show();
+        }
+
 
 
         // Switch to instruction mode
